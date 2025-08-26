@@ -17,6 +17,8 @@ import WatchlistPage from "./pages/watchlistPage";
 import LoginPage from "./pages/loginPage";
 import AuthContextProvider from "./contexts/authContext";
 import ProtectedRoutes from "./protectedRoutes";
+import SignUpPage from "./pages/signUpPage";
+import ProfilePage from "./pages/profilePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,16 +38,22 @@ const App = () => {
         <SiteHeader />
         <MoviesContextProvider>
           <Routes>
-            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
-            <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
-            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/trending" element={<TrendingMoviesPage />} />
-            <Route path="/movies/:id/recommendations" element={<RecommendedPage />} />
-            <Route path="/movies/watchlist" element={<WatchlistPage />} />
-            <Route path="/login" element={<LoginPage />} /> 
             <Route path="/" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={ <SignUpPage /> } />
+
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+              <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
+              <Route path="/movies/:id" element={<MoviePage />} />
+              <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
+              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+              <Route path="/movies/trending" element={<TrendingMoviesPage />} />
+              <Route path="/movies/:id/recommendations" element={<RecommendedPage />} />
+              <Route path="/movies/watchlist" element={<WatchlistPage />} />
+              <Route path="/home" element={<HomePage />} /> 
+              <Route path="/profile" element={<ProfilePage />} />
+            </Route>  
             <Route path="*" element={ <Navigate to="/" /> } />
           </Routes>
         </MoviesContextProvider>

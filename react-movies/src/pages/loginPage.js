@@ -19,7 +19,7 @@ const LoginPage = props => {
     const { from } = location.state ? { from: location.state.from.pathname } : { from: "/" };
 
     if (context.isAuthenticated === true) {
-        return <Navigate to={from} />;
+        return <Navigate to= "/home" />;
     }
 
     return (

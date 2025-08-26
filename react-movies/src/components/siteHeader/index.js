@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext  } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { AuthContext } from "../../contexts/authContext";
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
@@ -29,7 +29,9 @@ const SiteHeader = ({ history }) => {
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Trending", path: "/movies/trending" },
     { label: "Recommended", path: "/movies/recommended" },
-    { label: "Watchlist" , path: "/movies/watchlist"}
+    { label: "Watchlist" , path: "/movies/watchlist"},
+    { label: "Profile" , path: "/profile"},
+    { label: "signout" , path: "/login"}
   ];
 
   const handleMenuSelect = (pageURL) => {
