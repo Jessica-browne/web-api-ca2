@@ -20,7 +20,7 @@ const SignUpPage = props => {
   }
 
   if (registered === true) {
-    return <Navigate to="/home" />;
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -38,6 +38,15 @@ const SignUpPage = props => {
       }}></input><br />
       {/* Login web form  */}
       <button onClick={register}>Register</button>
+      <p>
+        The password minimum length is 8
+      </p>
+      <p>
+        Must include at least one symbol (ie. ?@[ ] ect)
+      </p>
+      <p>
+        Must include at least one letter and number
+      </p>
     </>
   );
 };

@@ -31,7 +31,7 @@ const SiteHeader = ({ history }) => {
     { label: "Recommended", path: "/movies/recommended" },
     { label: "Watchlist" , path: "/movies/watchlist"},
     { label: "Profile" , path: "/profile"},
-    { label: "signout" , path: "/login"}
+    { label: "signout" , path: "/signout"}
   ];
 
   const handleMenuSelect = (pageURL) => {
