@@ -21,7 +21,7 @@ export const signup = async (username, password) => {
 };
  
 export const addToFavourites = async (favourites) => {
-    const response = await fetch ('http://localhost:8080/api/users', {
+    const response = await fetch ('http://localhost:8080/api/users/favourites', {
         headers: {
             'Content-Type' : 'application/json'
         },
@@ -30,3 +30,20 @@ export const addToFavourites = async (favourites) => {
     });
     return response.json();
 }
+
+export const getFavourites = () => {
+  return fetch(
+    `http://localhost:8080/api/users/favourites`
+  ).then((response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  })
+  .catch((error) => {
+      throw error
+  });
+};
+  
