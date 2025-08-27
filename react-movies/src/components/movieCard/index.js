@@ -30,7 +30,7 @@ export default function MovieCard({ movie, action }) {
 
   const handleAddToFavorite = (e) => {
     e.preventDefault();
-    addToFavourites(movie);
+    addToFavourites(favorites);
   };
 
   return (

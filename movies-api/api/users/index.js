@@ -42,6 +42,24 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.put("/favourites", async (req, res) => {
+    try {
+        const { username, favourites} = req.body;
+
+        const result = await User.updateOne(
+            {_id: req.params.id}, { favourites: favourite });
+        if (result.matchedCount) {
+        res.status(200).json({ code:200, msg: 'User Updated Sucessfully' });
+        } else {
+            res.status(404).json({ code: 404, msg: 'Unable to Update User' });
+        }    
+    }   catch(error) {
+        console.error(error);
+        res.status(500).json({ success: false, msg: 'Internal server error.' });
+    }
+
+});
+
 async function registerUser(req, res) {
     // Add input validation logic here
     await User.create(req.body);
@@ -62,5 +80,8 @@ async function authenticateUser(req, res) {
         res.status(401).json({ success: false, msg: 'Wrong password.' });
     }
 }
+
+
+
 
 export default router;
