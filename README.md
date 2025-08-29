@@ -1,53 +1,55 @@
 # Assignment 2 - Web API.
 
 Name: Jessica Browne
+student number : 20101992
 
 ## Features.
 
-A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
+ + added favourites to the user schema so each user has a list of favouries (dosnt show in favourites page just the db) 
+ + added watchlist to the user schema so each user has a watchlist (dosnt show in watchlist page just the db) 
+ + added password requirements to the sign up page
  
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
+npm run dev in movies api and npm start in  react movies
 
 ## API Configuration
 
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
-
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
-
+make an env file for both folders and put the below into it 
 ______________________
-NODEENV=development
+FOR movies api env
+NODE_ENV=development
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
-secret=YourJWTSecret
-______________________
+HOST= localhost
+MONGO_DB= YourMongoURL
+TMDB_KEY= YourTMDBKEY
+SECRET=YourJWTSecret
 
-## API Design
-Give an overview of your web API design, perhaps similar to the following: 
+FOR react movies env
+REACT_APP_TMDB_KEY=YourTMDBKEY
+FAST_REFRESH=false
 
-- /api/movies | GET | Gets a list of movies 
-- /api/movies/{movieid} | GET | Gets a single movie 
-- /api/movies/{movieid}/reviews | GET | Get all reviews for movie 
-- /api/movies/{movieid}/reviews | POST | Create a new review for Movie 
+## API Design 
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+- /api/users | GET | Gets a list of users 
+- /api/movies/favurites | PUT | body : username, movieid, add movie to users favourites
+- /api/movies/watchlist | PUT | body : username, movieid, add movie to users watchlist
+- /api/users | post | body: "username, password" register a users
+- /api/users?action=register | post | register a users
+- /api/users/${username} get a users favoures (dosnt work)
+
 
 ## Security and Authentication
 
-Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
+all routes are protected except the login and sign up page
 
 ## Integrating with React App
-
-Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
+the entire app is held behind needing an account which can be logged into or created on the landing pahe and can be signed out of at anytime from the menu bar
+when the add to favourites or add to watchlists button is pressed it adds it to the data base but dosnt show up in the favourets page cause i couldent figure it out. i believe it has to do with all the misspeelings of favourites i have. so far ive found 8/9 total 
 
 ## Independent learning (if relevant)
 
-Briefly explain any non-standard features developed for the app.   
+had to find out how to add to an array in the db without overwriting all the info so with "$push" instead of addtoset. 
+had to find how to force a data type to be an int, found "parseInt" and used it when adding movie ids to the array cause everything wanted to be a string 
+
