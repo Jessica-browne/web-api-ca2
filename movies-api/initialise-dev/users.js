@@ -1,7 +1,7 @@
 const  users = [
     {
         'username': 'user1',
-        'password': 'test123@',
+        'password': 'v',
         'favourites': 575265
     },
     {

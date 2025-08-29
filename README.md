@@ -3,6 +3,7 @@
 Name: Jessica Browne
 student number : 20101992
 
+youtube video link : https://youtu.be/WLwDb-zr2lU
 ## Features.
 
  + added favourites to the user schema so each user has a list of favouries (dosnt show in favourites page just the db) 
