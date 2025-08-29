@@ -64,6 +64,8 @@ router.put("/favourites", async (req, res) => {
     res.status(500).json({ success: false, msg: "Internal server error" });
   }
 });
+
+
 //get a persons info by id 
 router.get("/:id", async(req, res, next) => {
     try {
