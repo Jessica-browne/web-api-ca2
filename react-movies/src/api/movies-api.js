@@ -21,12 +21,12 @@ export const signup = async (username, password) => {
 };
  
 export const addToFavourites = async (username, movieId) => {
-    const response = await fetch("http://localhost:8080/api/users/jessica/favourites", {
+    const response = await fetch("http://localhost:8080/api/users/favourites", {
         headers: {
             'Content-Type' : 'application/json'
         },
-        method: 'post',
-        body: JSON.stringify({movieId })
+        method: 'put',
+        body: JSON.stringify({username, favourites:movieId })
     });
     if (!response.ok) {
       return response.json().then((error) => {
@@ -36,9 +36,9 @@ export const addToFavourites = async (username, movieId) => {
     return response.json();
 }
 
-export const getFavourites = () => {
+export const getUserFavourites = async (username) => {
   return fetch(
-    `http://localhost:8080/api/users/favourites`
+    `http://localhost:8080/api/users/`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {

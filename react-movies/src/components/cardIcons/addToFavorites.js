@@ -18,10 +18,9 @@ const AddToFavoritesIcon = ({ movie }) => {
     }
     try{
     await apiAddToFavourites(userName, movie.id);
-    addToFavourites(movie.id);
     console.log("added");
     } catch (error) {
-      console.error("not added")
+      console.error(error)
     }
   };
 

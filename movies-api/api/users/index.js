@@ -1,5 +1,5 @@
 import express from 'express';
-import User from './userModel';
+import User from './userModel.js';
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 
@@ -30,6 +30,7 @@ router.post('/', asyncHandler (async (req, res) => {
 }));
 
 // Update a user
+/*
 router.put('/:id', async (req, res) => {
     if (req.body._id) delete req.body._id;
     const result = await User.updateOne({
@@ -40,24 +41,53 @@ router.put('/:id', async (req, res) => {
     } else {
         res.status(404).json({ code: 404, msg: 'Unable to Update User' });
     }
-});
+}); */
 
 router.put("/favourites", async (req, res) => {
-    try {
-        const { username, favourites} = req.body;
+  try {
+    console.log("Request body:", req.body);
+    const { username, favourites } = req.body;
+    const movieId = parseInt(favourites, 10);
+    const result = await User.findOneAndUpdate(
+      { username },               
+      { $push: { favourites: movieId } },
+      { new: true }                         
+    );
 
-        const result = await User.updateOne(
-            {_id: req.params.id}, { favourites: favourite });
-        if (result.matchedCount) {
-        res.status(200).json({ code:200, msg: 'User Updated Sucessfully' });
-        } else {
-            res.status(404).json({ code: 404, msg: 'Unable to Update User' });
-        }    
-    }   catch(error) {
-        console.error(error);
-        res.status(500).json({ success: false, msg: 'Internal server error.' });
+  if (result) {
+      res.status(200).json({ success: true, msg: "Favourites updated", user: result });
+    } else {
+      res.status(404).json({ success: false, msg: "User not found" });
     }
+  } catch (error) {
+    console.error("FAVOURITES ROUTE ERROR:", error);
+    res.status(500).json({ success: false, msg: "Internal server error" });
+  }
+});
+//get a persons info by id 
+router.get("/:id", async(req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if(!user) {
+            return res.status(404).json({success: false,msg: "user not found"});
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    } 
+});
 
+//get a persons info by username 
+router.get("/username/:username", async(req, res, next) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if(!user) {
+            return res.status(404).json({success: false,msg: "user not found"});
+        }
+        res.status(200).json(user);
+    } catch (error) {
+         next(error);
+    } 
 });
 
 async function registerUser(req, res) {
