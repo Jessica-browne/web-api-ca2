@@ -38,7 +38,7 @@ export const addToFavourites = async (username, movieId) => {
 
 export const getUserFavourites = async (username) => {
   return fetch(
-    `http://localhost:8080/api/users/`
+    `http://localhost:8080/api/users/${username}`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
