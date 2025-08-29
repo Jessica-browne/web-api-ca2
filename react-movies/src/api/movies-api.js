@@ -36,6 +36,22 @@ export const addToFavourites = async (username, movieId) => {
     return response.json();
 }
 
+export const addToWatchlist = async (username, movieId) => {
+    const response = await fetch("http://localhost:8080/api/users/watchlist", {
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        method: 'put',
+        body: JSON.stringify({username, watchlist:movieId })
+    });
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+}
+
 export const getUserFavourites = async (username) => {
   return fetch(
     `http://localhost:8080/api/users/${username}`

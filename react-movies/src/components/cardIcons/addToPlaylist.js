@@ -2,13 +2,26 @@ import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import { AuthContext } from "../../contexts/authContext";
+import { addToWatchlist as apiAddToWatchlist } from "../../api/movies-api";
 
 const AddToWatchlistIcon = ({ movie }) => {
-  const context = useContext(MoviesContext);
+    const {userName, isAuthenticated} = useContext(AuthContext);
+    const {addtoWatchlist} = useContext(MoviesContext);
 
-  const handleAddToWatchlist = (e) => {
+    const handleAddToWatchlist = async (e) => {
     e.preventDefault();
-    context.addToWatchlist(movie);
+
+    if(!isAuthenticated || !userName) {
+      console.error("user not logged in");
+      return;
+    }
+    try{
+    await apiAddToWatchlist(userName, movie.id);
+    console.log("added");
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   return (

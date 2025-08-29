@@ -66,6 +66,29 @@ router.put("/favourites", async (req, res) => {
 });
 
 
+router.put("/watchlist", async (req, res) => {
+  try {
+    console.log("Request body:", req.body);
+    const { username, watchlist } = req.body;
+    const movieId = parseInt(watchlist, 10);
+    const result = await User.findOneAndUpdate(
+      { username },               
+      { $push: { watchlist: movieId } },
+      { new: true }                         
+    );
+
+  if (result) {
+      res.status(200).json({ success: true, msg: "watchlist updated", user: result });
+    } else {
+      res.status(404).json({ success: false, msg: "User not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, msg: "Internal server error" });
+  }
+});
+
+
 //get a persons info by id 
 router.get("/:id", async(req, res, next) => {
     try {

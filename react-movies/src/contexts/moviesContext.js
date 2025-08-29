@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { getUserFavourites } from "../api/movies-api";
 import { AuthContext } from "./authContext";
 
@@ -8,7 +8,7 @@ const MoviesContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] );
   const [myReviews, setMyReviews] = useState( {} ); 
   const [watchlist, setWatchlist] = useState( [] ); 
-  const { username, isAuthenticated } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
 
   const addToFavorites = (movieId) => {
     let newFavorites = [];
@@ -46,18 +46,17 @@ const MoviesContextProvider = (props) => {
     );
   };
 
-  useEffect(() => {
+
     const getGetFavourites = async () => {
       try {
-        const favourites  = await getUserFavourites(username);
+        const favorites  = await getUserFavourites(username);
         setFavorites(favorites);
       } catch (error) {
         console.error("errpr getting favourites");
       }
       setFavorites([]);
     }
-    getGetFavourites();
-  })
+  
 
  return (
     <MoviesContext.Provider
@@ -69,6 +68,7 @@ const MoviesContextProvider = (props) => {
         watchlist,
         addToWatchlist,
         removeFromWatchlist,
+        getGetFavourites,
         
       }}
     >
